@@ -1,5 +1,11 @@
-This is a classic Play CRUD application, backed by a JDBC database. It demonstrates:
+# Automatedmediacenter [webapp]
 
-- Accessing a JDBC database, using Anorm.
-- Achieving, table pagination and CRUD forms.
-- Integrating with a CSS framework (Twitter Bootstrap ).
+## Description : 
+[TODO]
+
+## Technologies : 
+- Play Framework 2.4.0
+- 
+
+## How to use :
+[TODO]
