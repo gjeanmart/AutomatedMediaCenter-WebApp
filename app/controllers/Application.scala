@@ -13,12 +13,25 @@ import play.api.libs.ws._
 
 class Application @Inject() (ws: WSClient) extends Controller {
 
+  // **************************************************
   // ACTIONS
+  // **************************************************
+
+  /**
+    * index [ACTION]
+    * @return search.scala.html
+    */
   def index = Action { request =>
     Logger.debug("ACTION = index")
     Redirect(routes.Application.search())
   }
 
+  /**
+    * search [ACTION]
+    * @param phrase
+    * @param category
+    * @return search.scala.html
+    */
   def search(phrase: String="", category: String="") = Action.async {
     Logger.debug("ACTION = search(phrase="+phrase+", category="+category+")")
 
@@ -31,7 +44,13 @@ class Application @Inject() (ws: WSClient) extends Controller {
     )
   }
 
+  /**
+    * poller [ACTION]
+    * @return poller.scala.html
+    */
   def poller() = Action { request =>
+    Logger.debug("ACTION = poller")
+
     Ok(views.html.poller())
   }
 

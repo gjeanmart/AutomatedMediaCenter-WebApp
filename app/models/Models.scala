@@ -18,8 +18,6 @@ object TorrentSearchResult {
 
   implicit val context = play.api.libs.concurrent.Execution.Implicits.defaultContext
 
-  val dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-
   implicit val timeStampReader = Reads[DateTime](js =>
     js.validate[String].map[DateTime](dtString =>
       new DateTime(dtString.toLong*1000)
