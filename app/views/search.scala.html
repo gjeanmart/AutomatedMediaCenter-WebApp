@@ -1,0 +1,108 @@
+@import services._
+@(currentResult: TorrentSearchResult, currentPhrase: String, currentCategory: String)(implicit messages: Messages)
+
+
+@main {
+
+<h1 class="page-header">Search</h1>
+
+<div class="action">
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="searchBoxFilter" class="control-label col-xs-2">Search</label>
+            <div class="col-xs-10">
+                <input type="search" class="form-control" id="searchBoxFilter" placeholder="Search" name="p" value="@currentPhrase">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="searchBoxCategory_Anime" class="control-label col-xs-2">Category</label>
+            <div class="col-xs-10">
+                <label class="radio-inline">
+                    <input type="radio" name="c" id="searchBoxCategory_None" value="" @if(currentCategory==null || currentCategory==""){checked="checked"}> None
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="c" id="searchBoxCategory_Anime" value="Anime" @if(currentCategory=="Anime"){checked="checked"}> Anime
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="c" id="searchBoxCategory_Applications" value="Applications" @if(currentCategory=="Applications"){checked="checked"}> Applications
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="c" id="searchBoxCategory_Books" value="Books" @if(currentCategory=="Books"){checked="checked"}> Books
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="c" id="searchBoxCategory_Games" value="Games" @if(currentCategory=="Games"){checked="checked"}> Games
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="c" id="searchBoxCategory_Movies" value="Movies" @if(currentCategory=="Movies"){checked="checked"}> Movies
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="c" id="searchBoxCategory_Music" value="Music" @if(currentCategory=="Music"){checked="checked"}> Music
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="c" id="searchBoxCategory_Other" value="Other" @if(currentCategory=="Other"){checked="checked"}> Other
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="c" id="searchBoxCategory_TV" value="TV" @if(currentCategory=="TV"){checked="checked"}> TV
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@if(currentResult.torrents != null) {
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Size</th>
+            <th>Date</th>
+            <th>Seeds</th>
+            <th>Leeches</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(t <- currentResult.torrents) {
+        <tr>
+            <td>@t.title</td>
+            <td>@t.category</td>
+            <td style="white-space:nowrap;">@Template.bytesToHumanReadable(t.size)</td>
+            <td style="white-space:nowrap;">@t.date.toString("yyyy-MM-dd")</td>
+            <td>@t.seeds</td>
+            <td>@t.leeches</td>
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+} else {
+@if(!currentPhrase.isEmpty()) {
+<div>NO RESULT</div>
+}
+}
+
+<!-- Query Info -->
+@if(!currentPhrase.isEmpty()) {
+<div>
+    <p>Phrase: @currentPhrase</p>
+    <p>Category: @currentCategory</p>
+    <p>Response Time: @currentResult.time</p>
+    <p>Code: @currentResult.code</p>
+    <p>Result number: @currentResult.nbResult</p>
+</div>
+}
+
+}
+
+            
